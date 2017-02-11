@@ -6,6 +6,7 @@ import jesusgsdev.shoppingcart.entities.Product;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -14,21 +15,26 @@ import java.util.stream.Collectors;
  */
 public class RuleBuyThreePayTwo implements ShoppingRule {
 
+    private final String DISCOUNT_BY_BUY_3_PAY_2 = " (Discount by Buy 3 Pay 2)";
+    private final Predicate<Product> isThisRule = p -> p.getRule().equals(this);
+
     @Override
     public void applyRule(Cart cart) {
 
-        Map<String, List<Product>> productList = cart.getProducts().stream().filter(p -> p.getRule()!= null && p.getRule().equals(this))
-                .collect(Collectors.groupingBy(Product::getName));
+        Map<String, List<Product>> productList = cart.getProducts()
+                                                    .stream()
+                                                    .filter(RulesHelper.ruleIsNotNull.and(isThisRule))
+                                                    .collect(Collectors.groupingBy(Product::getName));
 
         for(String name : productList.keySet()){
             List<Product> productsToApply = productList.get(name);
 
             Product pNegative = new Product(productsToApply.get(0));
             pNegative.setPrice(pNegative.getPrice() * -1.0);
-            pNegative.setName(pNegative.getName() + " (Discount by Buy 3 Pay 2)");
+            pNegative.setName(pNegative.getName() + DISCOUNT_BY_BUY_3_PAY_2);
 
             Integer numToProductsToAdd = productsToApply.size() / 3;
-            cart.addNProduct(pNegative, numToProductsToAdd);
+            cart.addNProducts(pNegative, numToProductsToAdd);
         }
 
     }

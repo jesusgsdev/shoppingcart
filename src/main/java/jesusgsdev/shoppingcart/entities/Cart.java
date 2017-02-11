@@ -2,6 +2,7 @@ package jesusgsdev.shoppingcart.entities;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 /**
@@ -10,7 +11,6 @@ import java.util.stream.IntStream;
 public class Cart {
 
     private List<Product> products;
-    private Double total;
 
     public Cart() {
         this.products = new LinkedList<>();
@@ -28,16 +28,25 @@ public class Cart {
         return products.stream().mapToDouble(p -> p.getPrice()).sum();
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
     public void addProduct(Product p){
         this.products.add(p);
     }
 
-    public void addNProduct(Product p, Integer amount){
+    public void addNProducts(Product p, Integer amount){
         IntStream.rangeClosed(1,amount).forEach(i -> this.products.add(new Product(p)));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cart)) return false;
+        Cart cart = (Cart) o;
+        return Objects.equals(products, cart.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(products);
     }
 
     @Override

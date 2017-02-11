@@ -33,6 +33,16 @@ public class Product {
         this.id = UUID.randomUUID();
     }
 
+    private Product(Builder builder) {
+        this.id = UUID.randomUUID();
+        this.name = builder.name;
+        this.price = builder.price;
+    }
+
+    public static Builder newProduct() {
+        return new Builder();
+    }
+
     public String getName() {
         return name;
     }
@@ -57,6 +67,7 @@ public class Product {
         this.rule = rule;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,5 +86,28 @@ public class Product {
     @Override
     public String toString() {
         return "{" + name + ": $" + price + "}\n";
+    }
+
+    public static final class Builder {
+        private String name;
+        private Double price;
+
+        private Builder() {
+        }
+
+        public Product build() {
+            return new Product(this);
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder price(Double price) {
+            this.price = price;
+            return this;
+        }
+
     }
 }
