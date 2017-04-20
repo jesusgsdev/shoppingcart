@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/jesusgsdev/shoppingcart.svg?branch=master)](https://travis-ci.org/jesusgsdev/shoppingcart)
 ## Problem to be solved
 ### Supermarket Check Out
 
