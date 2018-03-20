@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/jesusgsdev/shoppingcart.svg?branch=master)](https://travis-ci.org/jesusgsdev/shoppingcart)
 [![codecov](https://codecov.io/gh/jesusgsdev/shoppingcart/branch/master/graph/badge.svg)](https://codecov.io/gh/jesusgsdev/shoppingcart)
+[![BCH compliance](https://bettercodehub.com/edge/badge/jesusgsdev/shoppingcart?branch=master)](https://bettercodehub.com/)
+
 ## Problem to be solved
 ### Supermarket Check Out
 
